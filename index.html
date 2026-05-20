@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SlangWise — Modern Slang, Plain English</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFFEFB;
+    --ink: #1A1612;
+    --ink-soft: #3D3630;
+    --ink-muted: #7A6F65;
+    --ink-faint: #B5ADA5;
+    --accent: #E85D26;
+    --accent-hover: #CF4E1A;
+    --accent-light: #FFF0EB;
+    --accent-mid: #F4A07A;
+    --teal: #1D6B6B;
+    --teal-light: #E6F5F5;
+    --gold: #C4890A;
+    --gold-light: #FDF5E0;
+    --border: #E8E2DA;
+    --border-soft: #F0EBE3;
+    --shadow-sm: 0 1px 4px rgba(26,22,18,0.06);
+    --shadow: 0 2px 16px rgba(26,22,18,0.09);
+    --shadow-md: 0 6px 28px rgba(26,22,18,0.13);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --max: 760px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 90% 10%, rgba(232,93,38,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 5% 80%, rgba(29,107,107,0.05) 0%, transparent 70%);
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 2rem 2rem 0;
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .site-name {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .site-name-dot {
+    width: 7px; height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 2.5rem 2rem 0;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 7vw, 58px);
+    font-weight: 900;
+    line-height: 1.06;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--ink-muted);
+    line-height: 1.65;
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── TRANSLATOR ── */
+  .translator {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+  }
+  .panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .panel {
+    padding: 1.5rem;
+    min-height: 160px;
+  }
+  .panel-left {
+    border-right: 1px solid var(--border);
+  }
+  .panel-lang {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .lang-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .lang-dot.teal { background: var(--teal); }
+
+  #slangInput {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 19px;
+    color: var(--ink);
+    background: transparent;
+    resize: none;
+    font-family: var(--font-body);
+    line-height: 1.5;
+    min-height: 110px;
+  }
+  #slangInput::placeholder { color: var(--ink-faint); }
+
+  .output { min-height: 110px; }
+  .out-placeholder {
+    color: var(--ink-faint);
+    font-size: 16px;
+    font-style: italic;
+    padding-top: 2px;
+  }
+  .out-matched {
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .out-def-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 5px;
+  }
+  .out-def {
+    font-size: 18px;
+    color: var(--ink);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .out-examples .ex {
+    font-size: 13px;
+    color: var(--ink-muted);
+    font-style: italic;
+    padding: 5px 0 5px 11px;
+    border-left: 2px solid var(--accent-mid);
+    margin-bottom: 6px;
+    line-height: 1.45;
+  }
+  .out-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--teal-light);
+    color: var(--teal);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-top: 10px;
+  }
+  .out-not-found {
+    font-size: 15px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    padding-top: 2px;
+  }
+  .out-not-found a {
+    color: var(--accent);
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-mid);
+  }
+
+  /* card footer */
+  .card-footer {
+    border-top: 1px solid var(--border);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--cream);
+  }
+  .btn-translate {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 9px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-translate:hover { background: var(--accent-hover); }
+  .btn-translate:active { transform: scale(0.97); }
+  .btn-clear {
+    background: transparent;
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: background 0.15s;
+  }
+  .btn-clear:hover { background: var(--border-soft); }
+  .footer-hint {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-left: auto;
+  }
+
+  /* loading dots */
+  .dots { display: flex; gap: 4px; align-items: center; padding: 6px 0; }
+  .dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; animation: dp 1.1s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.18s; }
+  .dot:nth-child(3) { animation-delay: 0.36s; }
+  @keyframes dp { 0%,80%,100%{opacity:.2;transform:scale(.75)} 40%{opacity:1;transform:scale(1)} }
+
+  /* ── POPULAR CHIPS ── */
+  .chips-section {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+  }
+  .chips-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: var(--font-body);
+    line-height: 1.5;
+  }
+  .chip:hover {
+    background: var(--accent-light);
+    color: var(--accent);
+    border-color: var(--accent-mid);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    max-width: var(--max);
+    margin: 0 auto 2rem;
+    padding: 0 2rem;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── SUGGEST A WORD ── */
+  .suggest-section {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 2rem 2rem;
+  }
+  .suggest-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .suggest-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .suggest-header {
+    padding: 1.25rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .suggest-icon {
+    width: 38px; height: 38px;
+    background: var(--accent-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .suggest-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .suggest-sub {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+  .suggest-form {
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .form-full { grid-column: 1 / -1; }
+  .form-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-input, .form-textarea, .form-select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--cream);
+    outline: none;
+    font-family: var(--font-body);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .form-input:focus, .form-textarea:focus, .form-select:focus {
+    border-color: var(--accent);
+    background: white;
+  }
+  .form-textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
+  .form-hint { font-size: 11px; color: var(--ink-faint); margin-top: 3px; }
+  .suggest-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-suggest {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 9px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-suggest:hover { background: var(--accent-hover); }
+  .btn-suggest:active { transform: scale(0.97); }
+  .suggest-privacy {
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.4;
+  }
+
+  /* success state */
+  .suggest-success {
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .success-check {
+    width: 52px; height: 52px;
+    background: var(--teal-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin: 0 auto 12px;
+    color: var(--teal);
+  }
+  .success-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .success-body {
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    max-width: 380px;
+    margin: 0 auto 16px;
+  }
+  .btn-another {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent-mid);
+    border-radius: var(--radius-sm);
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: background 0.15s;
+  }
+  .btn-another:hover { background: var(--accent-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+  .footer-text {
+    font-size: 13px;
+    color: var(--ink-faint);
+    line-height: 1.7;
+  }
+  .footer-text a {
+    color: var(--ink-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(26,22,18,0.5);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--warm-white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 16px 60px rgba(26,22,18,0.2);
+    transform: translateY(18px);
+    transition: transform 0.2s;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 22px; right: 22px;
+    background: var(--ink);
+    color: white;
+    padding: 11px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    font-weight: 500;
+    z-index: 500;
+    transform: translateY(70px);
+    opacity: 0;
+    transition: all 0.25s;
+    pointer-events: none;
+    max-width: 300px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  @media (max-width: 620px) {
+    .panels { grid-template-columns: 1fr; }
+    .panel-left { border-right: none; border-bottom: 1px solid var(--border); }
+    .suggest-form { grid-template-columns: 1fr; }
+    .hero-title { font-size: 36px; }
+    header, .hero, .translator, .chips-section, .suggest-section, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .section-divider { margin-left: 1.25rem; margin-right: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-name"><span class="site-name-dot"></span>SlangWise</div>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">Modern slang, made simple</div>
+  <h1 class="hero-title">What does that<br><em>even mean?</em></h1>
+  <p class="hero-sub">Type any slang word or phrase and get a plain-English explanation.</p>
+</section>
+
+<section class="translator">
+  <div class="card">
+    <div class="panels">
+      <div class="panel panel-left">
+        <div class="panel-lang"><span class="lang-dot"></span>Slang or phrase</div>
+        <textarea id="slangInput" placeholder='Try "no cap", "bussin", "lowkey"&#8230;' rows="5"></textarea>
+      </div>
+      <div class="panel">
+        <div class="panel-lang"><span class="lang-dot teal"></span>Plain English</div>
+        <div class="output" id="output">
+          <div class="out-placeholder">Your translation appears here</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn-translate" onclick="doTranslate()">&#8594; Translate</button>
+      <button class="btn-clear" onclick="clearAll()">Clear</button>
+      <span class="footer-hint">Or press Enter</span>
+    </div>
+  </div>
+</section>
+
+<section class="chips-section">
+  <div class="chips-label">Popular — click to try</div>
+  <div class="chips" id="chips"></div>
+</section>
+
+<hr class="section-divider">
+
+<section class="suggest-section">
+  <div class="suggest-label">Heard something new?</div>
+  <div class="suggest-card">
+    <div class="suggest-header">
+      <div class="suggest-icon">&#128172;</div>
+      <div>
+        <div class="suggest-title">Suggest a Word</div>
+        <div class="suggest-sub">Heard a slang term we don't have yet? Submit it — we'll review it and add it if it's a good fit.</div>
+      </div>
+    </div>
+    <div id="suggestFormArea">
+      <div class="suggest-form">
+        <div>
+          <label class="form-label">Slang word or phrase *</label>
+          <input class="form-input" id="sw-word" placeholder='e.g. rizz, era, delulu'>
+        </div>
+        <div class="form-full">
+          <label class="form-label">Plain-English definition *</label>
+          <textarea class="form-textarea" id="sw-def" placeholder="What does it mean? Explain it simply&#8230;"></textarea>
+        </div>
+        <div class="form-full">
+          <label class="form-label">Example sentences</label>
+          <textarea class="form-textarea" id="sw-ex" placeholder='e.g. "He has so much rizz."&#10;"She is totally delulu about that."' style="min-height:60px"></textarea>
+          <div class="form-hint">One example per line</div>
+        </div>
+        <div class="form-full">
+          <label class="form-label">Your name (optional)</label>
+          <input class="form-input" id="sw-author" placeholder="e.g. Margaret from Ohio">
+        </div>
+        <!-- honeypot: invisible, catches bots -->
+        <div style="position:absolute;left:-9999px;top:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+          <input type="text" id="hp-field" tabindex="-1" autocomplete="off">
+        </div>
+      </div>
+      <div class="suggest-footer">
+        <button class="btn-suggest" onclick="submitSuggestion()">Submit for Review</button>
+        <div class="suggest-privacy">Your suggestion goes to a private review queue<br>before anything appears on the site.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-text">
+    Have a word we're missing? Use the suggestion form above!<br>
+    <span style="font-size:11px;color:var(--ink-faint)">&#169; 2025 SlangWise</span>
+  </p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DICTIONARY ───────────────────────────────────────────────
+const WORDS = [
+  // ── CLASSICS ──────────────────────────────────────────────
+  {word:'no cap',def:'Absolutely true — not exaggerating or lying at all. The opposite of "cap" (which means a lie).',examples:['"That movie was amazing, no cap."','"No cap, that\'s the best pie I\'ve ever had."','"She said she ran a marathon last week, no cap."'],cat:'gen-z'},
+  {word:'cap',def:'A lie or exaggeration. Calling something "cap" means you don\'t believe it\'s true.',examples:['"That\'s cap — there\'s no way that happened."','"Stop capping, we all know the truth."','"He said he won the lottery? Big cap."'],cat:'gen-z'},
+  {word:'slay',def:'To do something exceptionally well, or to look and feel amazing. A huge compliment.',examples:['"She absolutely slayed that presentation."','"You\'re slaying in that outfit!"','"He walked in and slayed the whole room."'],cat:'gen-z'},
+  {word:'bussin',def:'Extremely delicious or exceptionally good — especially used to praise food.',examples:['"This homemade soup is bussin."','"Their new bakery is absolutely bussin."','"Grandma, your cooking is bussin as always."'],cat:'food'},
+  {word:'goat',def:'Greatest Of All Time. Used to describe someone who is the undisputed best at what they do.',examples:['"Michael Jordan is the GOAT."','"She\'s the GOAT of baking in our family."','"That teacher was the GOAT — changed my life."'],cat:'general'},
+  {word:'hits different',def:'Feels uniquely special or affects you in a way that\'s hard to put into words — better than usual.',examples:['"Coffee on a cold morning just hits different."','"Old photos hit different when you\'re older."','"This song hits different at night."'],cat:'general'},
+  {word:'sus',def:'Suspicious or untrustworthy — something feels off, shady, or not quite right.',examples:['"That email looks pretty sus, don\'t click the link."','"His excuse sounds sus to me."','"The way he left early was sus."'],cat:'internet'},
+  {word:'bet',def:'Okay, agreed, or sure — a casual way to confirm or acknowledge something.',examples:['"Can you pick me up at 5?" — "Bet."','"Bet, I\'ll see you there."','"You want pizza tonight?" — "Bet."'],cat:'gen-z'},
+  {word:'glow up',def:'A big, positive transformation in someone\'s appearance, confidence, attitude, or life situation.',examples:['"She had such a glow up after college."','"That town had a serious glow up."','"He went through a glow up after starting to exercise."'],cat:'general'},
+  {word:'tea',def:'Gossip, news, or juicy inside information. "Spilling the tea" means sharing the gossip.',examples:['"Spill the tea — what happened at the party?"','"There\'s a lot of tea going around at work."','"Oh, she has all the tea on what happened."'],cat:'general'},
+  {word:'lowkey',def:'Secretly, quietly, or to a small degree — used to admit something without making a big deal of it.',examples:['"I lowkey love that old TV show."','"She\'s lowkey the best player on the team."','"I\'m lowkey nervous about the trip."'],cat:'gen-z'},
+  {word:"it's giving",def:'It has the look, feel, or energy of something — a way to describe the vibe or impression something gives off.',examples:['"That outfit is giving royal."','"This weather is giving spring vibes."','"The party was giving 1970s disco."'],cat:'gen-z'},
+  {word:'fire',def:'Excellent, impressive, or very cool. High praise for anything you really like.',examples:['"That new restaurant is fire."','"Your hair looks fire today."','"This playlist is straight fire."'],cat:'general'},
+  {word:'slaps',def:'Really good — used especially for music or food that impresses you.',examples:['"This song absolutely slaps."','"Her cooking slaps every single time."','"That new album slaps from start to finish."'],cat:'internet'},
+  {word:'vibe check',def:'A quick check on someone\'s mood, attitude, or overall energy — or a test of whether something feels right.',examples:['"Vibe check — are you okay?"','"This party passed the vibe check."','"I did a vibe check on the restaurant before we booked it."'],cat:'gen-z'},
+  {word:'understood the assignment',def:'Did exactly what was needed or expected — and nailed it. Said when someone gets something perfectly right.',examples:['"She wore the perfect costume — she understood the assignment."','"The chef understood the assignment with this dish."','"He showed up early and prepared. He understood the assignment."'],cat:'gen-z'},
+  {word:'main character',def:'Acting like you are the star of your own story — confident, bold, standing out from the crowd.',examples:['"She walked in like the main character."','"I\'m having a main character moment today."','"He dressed like the main character at the reunion."'],cat:'internet'},
+  {word:'rent free',def:'When something keeps popping into your mind without being invited — you can\'t stop thinking about it.',examples:['"That song has been living rent free in my head all week."','"The argument is rent free in my brain."','"That joke is rent free. I keep laughing."'],cat:'general'},
+  {word:'deadass',def:'Completely serious — used to emphasize that you are not joking at all.',examples:['"Deadass, I saw a bear in the backyard."','"Are you deadass right now?"','"I\'m deadass tired of this weather."'],cat:'gen-z'},
+  {word:'rizz',def:'Natural charm or charisma — the effortless ability to attract people or make them like you.',examples:['"He has so much rizz, everyone loves him."','"She walked in with pure rizz."','"That professor has rizz — everyone loves his class."'],cat:'gen-z'},
+  {word:'delulu',def:'Short for delusional — used playfully when someone has wildly unrealistic hopes or expectations.',examples:['"She thinks he\'ll call her back — she\'s so delulu."','"I\'m delulu for even thinking that was a good idea."','"He\'s delulu if he thinks that plan will work."'],cat:'gen-z'},
+  {word:'era',def:'A phase or chapter of your life, usually an empowering or defining one.',examples:['"I\'m in my cooking era."','"She\'s fully in her main character era."','"He\'s in his healthy lifestyle era."'],cat:'gen-z'},
+  {word:'snatched',def:'Looking very stylish, put-together, and impressive — usually describing an outfit or appearance.',examples:['"Your look is absolutely snatched."','"She showed up snatched to the party."','"That jacket has you looking snatched."'],cat:'general'},
+  {word:'periodt',def:'Used at the end of a statement to strongly emphasize it — like saying "end of discussion" or "and that\'s final."',examples:['"She\'s the best cook in the family, periodt."','"We\'re going on that trip, periodt."','"That was rude, and I\'m not apologizing, periodt."'],cat:'gen-z'},
+  {word:'iconic',def:'Legendary, unforgettable, or extremely impressive. One of the highest compliments you can give.',examples:['"That outfit is iconic."','"Grandma, you were literally iconic in the 70s."','"That speech was iconic — I\'ll never forget it."'],cat:'general'},
+  {word:'caught in 4k',def:'Caught doing something — especially something embarrassing or wrong — with undeniable proof.',examples:['"He was caught in 4K lying about where he was."','"She was caught in 4K eating the last slice of cake."','"You can\'t deny it, you were caught in 4K."'],cat:'internet'},
+
+  // ── REACTIONS & EXPRESSIONS ───────────────────────────────
+  {word:'no shot',def:'There\'s no way — expressing complete disbelief that something is true or possible.',examples:['"No shot he actually said that."','"No shot we\'re getting there on time."','"No shot that\'s the real price."'],cat:'gen-z'},
+  {word:'say less',def:'"I understand completely, no need to explain further." A way of agreeing immediately.',examples:['"Can you help me move Saturday?" — "Say less, I\'ll be there."','"Say less, I already know what to do."'],cat:'gen-z'},
+  {word:'fr fr',def:'Short for "for real for real" — used to really emphasize that something is true or serious.',examples:['"That movie was amazing fr fr."','"I\'m tired fr fr, I need to sleep."','"She\'s the nicest person I know, fr fr."'],cat:'gen-z'},
+  {word:'for real',def:'Seriously, truly, or genuinely — used to emphasize that you mean what you\'re saying.',examples:['"For real, that\'s the best meal I\'ve had."','"Are you for real right now?"','"For real though, thank you for everything."'],cat:'general'},
+  {word:'ngl',def:'Short for "not gonna lie" — a way of being honest, sometimes admitting something surprising.',examples:['"Ngl, I actually enjoyed that movie."','"Ngl, I was nervous about the trip."','"Ngl, your cooking is better than the restaurant\'s."'],cat:'internet'},
+  {word:'tbh',def:'Short for "to be honest" — signals that you\'re about to share a genuine or candid opinion.',examples:['"Tbh, I didn\'t like the new restaurant."','"That dress is beautiful, tbh."','"Tbh, I\'ve been feeling tired lately."'],cat:'internet'},
+  {word:'imo',def:'Short for "in my opinion" — a way of flagging that what you\'re saying is your personal view.',examples:['"Imo, the original recipe was better."','"Imo, the 70s had the best music."','"That\'s the wrong decision, imo."'],cat:'internet'},
+  {word:'smh',def:'Short for "shaking my head" — expresses disappointment, disbelief, or disapproval.',examples:['"He forgot her birthday again. Smh."','"They closed my favorite bakery. Smh."','"Smh, I can\'t believe that\'s allowed."'],cat:'internet'},
+  {word:'idk',def:'Short for "I don\'t know" — a casual shrug in text form.',examples:['"Are you coming to dinner?" — "Idk, maybe."','"Idk what to order, it all looks good."'],cat:'internet'},
+  {word:'imo',def:'Short for "in my opinion."',examples:['"Imo, the first season was the best."','"That\'s overpriced, imo."'],cat:'internet'},
+  {word:'lowkey highkey',def:'"Highkey" means very openly or obviously — the opposite of lowkey. "Lowkey" is subtle; "highkey" is not.',examples:['"I\'m highkey excited about the trip."','"She highkey has a crush on him."','"Highkey, that was the best vacation ever."'],cat:'gen-z'},
+  {word:'highkey',def:'Very openly, obviously, or intensely — used to emphasize strong feelings without hiding them.',examples:['"I\'m highkey obsessed with this show."','"Highkey, that dinner was incredible."','"She\'s highkey the funniest person I know."'],cat:'gen-z'},
+  {word:'facts',def:'That\'s completely true — used to strongly agree with something someone just said.',examples:['"This coffee shop is the best in town." — "Facts."','"It\'s too cold to go outside." — "Facts, I\'m staying in."'],cat:'general'},
+  {word:'mood',def:'Relatable, or perfectly captures how you\'re feeling right now.',examples:['"I just want to eat and sleep all day." — "Mood."','"That dog sleeping on the couch is a mood."','"Staying in on a rainy day is such a mood."'],cat:'general'},
+  {word:'big mood',def:'Something extremely relatable — an even stronger version of "mood."',examples:['"I canceled my plans to stay home." — "Big mood."','"Eating dessert first is a big mood."'],cat:'general'},
+  {word:'same',def:'Expressing that you feel exactly the same way — short for "I feel the same."',examples:['"I\'m so tired of cold weather." — "Same."','"I could eat pasta every day." — "Same, honestly."'],cat:'general'},
+  {word:'valid',def:'Acceptable, understandable, or making complete sense. Gives approval to someone\'s feelings or choices.',examples:['"I didn\'t go because I was tired." — "Valid."','"You skipped the meeting? Valid, it sounded boring."','"That\'s a valid reason to be upset."'],cat:'general'},
+  {word:'felt that',def:'That really resonated with me — I completely understand and relate to that feeling.',examples:['"I cried at that commercial." — "Felt that."','"I miss how simple things used to be." — "Felt that deeply."'],cat:'general'},
+  {word:'not me',def:'A playful, self-aware way to admit you did something embarrassing or relatable.',examples:['"Not me eating cereal for dinner again."','"Not me staying up until 2am watching one more episode."','"Not me forgetting what day it is again."'],cat:'gen-z'},
+  {word:'i\'m dead',def:'Something was so funny it\'s as if you died laughing. An expression of extreme amusement.',examples:['"He tripped over the dog. I\'m dead."','"That joke had me dead."','"I\'m dead — that\'s the funniest thing I\'ve seen all week."'],cat:'general'},
+  {word:'crying laughing',def:'Laughing so hard you\'re in tears — used to describe something extremely funny.',examples:['"That video had me crying laughing."','"I was crying laughing at his story."'],cat:'general'},
+  {word:'not gonna lie',def:'Honestly, truly — a phrase used before admitting something genuine, surprising, or vulnerable.',examples:['"Not gonna lie, I was scared."','"Not gonna lie, that soup was incredible."','"Not gonna lie, I cried at that movie."'],cat:'general'},
+
+  // ── PEOPLE & RELATIONSHIPS ────────────────────────────────
+  {word:'bestie',def:'Best friend. An affectionate term for someone you\'re very close to.',examples:['"She\'s been my bestie since third grade."','"Happy birthday to my bestie!"','"Come on bestie, let\'s go."'],cat:'general'},
+  {word:'bestie behavior',def:'Acting like a true, supportive, kind best friend would.',examples:['"She brought me soup when I was sick — total bestie behavior."','"Staying up to talk me through it? That\'s bestie behavior."'],cat:'general'},
+  {word:'bff',def:'Best Friends Forever — a classic term for a very close, long-lasting friendship.',examples:['"We\'ve been BFFs since high school."','"She\'s my BFF, I tell her everything."'],cat:'general'},
+  {word:'fam',def:'Short for family — but often used affectionately for close friends too.',examples:['"These people are my fam."','"Thanks for being there, fam."','"I\'d do anything for my fam."'],cat:'general'},
+  {word:'squad',def:'Your close group of friends who you spend time with regularly.',examples:['"The whole squad is coming to dinner."','"Squad goals — they\'ve been friends for 40 years."','"Where\'s the squad tonight?"'],cat:'general'},
+  {word:'ride or die',def:'Someone who is completely loyal and will stick by you no matter what — through good times and bad.',examples:['"She\'s my ride or die — has been for 30 years."','"He\'s the definition of a ride or die friend."','"I need a ride or die, not a fair-weather friend."'],cat:'general'},
+  {word:'situationship',def:'A romantic relationship that\'s more than friendship but hasn\'t been officially defined or labeled.',examples:['"They\'ve been in a situationship for months."','"I don\'t know what we are — it\'s a situationship."','"She\'s tired of situationships and wants something real."'],cat:'gen-z'},
+  {word:'talking stage',def:'The early phase of a potential relationship where two people are getting to know each other but aren\'t officially together yet.',examples:['"We\'re in the talking stage right now."','"The talking stage is the most nerve-wracking part."'],cat:'gen-z'},
+  {word:'ghosting',def:'Suddenly cutting off all communication with someone — stopping texts, calls, and contact with no explanation.',examples:['"He ghosted her after three dates."','"I thought we were friends but she ghosted me."','"Ghosting is really hurtful — just be honest."'],cat:'general'},
+  {word:'breadcrumbing',def:'Giving someone just enough attention to keep them interested without any real commitment.',examples:['"He\'s not serious — he\'s just breadcrumbing her."','"Stop breadcrumbing me and make up your mind."'],cat:'general'},
+  {word:'red flag',def:'A warning sign in a person\'s behavior that suggests they might not be trustworthy, kind, or a good match.',examples:['"He talks over everyone — that\'s a red flag."','"She never apologizes. Red flag."','"That\'s a huge red flag in any relationship."'],cat:'general'},
+  {word:'green flag',def:'A positive sign in a person\'s behavior that shows they are kind, trustworthy, and a good match.',examples:['"He remembered what I said last week — green flag."','"She admits when she\'s wrong. Total green flag."','"The fact that he\'s close with his family is a green flag."'],cat:'general'},
+  {word:'pick me',def:'Someone who seeks attention or approval by putting others down or acting like they\'re better or different.',examples:['"She always says she\'s not like other girls — total pick me."','"He was being such a pick me at the party."'],cat:'gen-z'},
+  {word:'simp',def:'Someone who goes to extreme lengths to impress or please someone they have feelings for, often without getting anything back.',examples:['"He bought her flowers every day — he\'s simping hard."','"Don\'t simp for someone who doesn\'t notice you."'],cat:'internet'},
+  {word:'stan',def:'To be an extremely enthusiastic, devoted fan of someone or something.',examples:['"I stan that author — I\'ve read every book."','"She stans that band — has every album."','"We stan a good recipe around here."'],cat:'internet'},
+  {word:'ship',def:'To support or root for two people being in a romantic relationship together.',examples:['"I ship those two — they\'d be perfect together."','"Everyone ships them, they just don\'t know it yet."'],cat:'internet'},
+  {word:'karen',def:'A slang term for someone (often imagined as a middle-aged woman) who is perceived as demanding, entitled, or quick to complain to management.',examples:['"She demanded to speak to the manager over nothing — total Karen."','"Don\'t be a Karen about the table."'],cat:'general'},
+  {word:'boomer',def:'Someone with old-fashioned, out-of-touch views — originally referring to the Baby Boomer generation but now used more broadly.',examples:['"He didn\'t know how to use the app — total boomer moment."','"OK boomer." (a dismissive response to outdated opinions)'],cat:'general'},
+  {word:'ok boomer',def:'A dismissive phrase used to brush off someone\'s old-fashioned or out-of-touch opinion — though it can be seen as rude.',examples:['"In my day we didn\'t need GPS." — "Ok boomer."','"It\'s meant as a joke, but it can come across as disrespectful."'],cat:'gen-z'},
+  {word:'understood',def:'Used on its own to mean "got it" — often said with calm confidence or attitude.',examples:['"Meet me at 3." — "Understood."','"Clean up before you leave." — "Understood."'],cat:'general'},
+
+  // ── EMOTIONS & STATES ────────────────────────────────────
+  {word:'salty',def:'Feeling bitter, annoyed, or upset about something — usually something minor.',examples:['"She\'s still salty about losing the game."','"Don\'t be salty, it was just a joke."','"He\'s salty because I beat him at cards."'],cat:'general'},
+  {word:'pressed',def:'Very bothered, upset, or annoyed about something.',examples:['"She\'s really pressed about what he said."','"Why are you so pressed? It\'s not a big deal."','"He was pressed all day after the argument."'],cat:'gen-z'},
+  {word:'triggered',def:'Feeling strongly upset or emotionally bothered by something.',examples:['"That movie really triggered me."','"She gets triggered by people chewing loudly."','"I\'m triggered by bad parking, ngl."'],cat:'general'},
+  {word:'extra',def:'Over the top, dramatic, or doing too much — more than the situation calls for.',examples:['"She hired a photographer for a Tuesday dinner. So extra."','"You\'re being extra — it\'s just a slight delay."','"He decorated the whole house for a small birthday. Very extra."'],cat:'general'},
+  {word:'shook',def:'Shocked, stunned, or deeply surprised by something.',examples:['"I\'m shook — I can\'t believe she said that."','"The ending of that book had me shook."','"He was shook when he saw his surprise party."'],cat:'general'},
+  {word:'big oof',def:'A large, cringeworthy, or painfully awkward situation — an amplified version of "oof."',examples:['"He called his teacher Mom. Big oof."','"Forgot your anniversary? Big oof."'],cat:'general'},
+  {word:'oof',def:'An expression of sympathy, secondhand embarrassment, or acknowledgment that something went badly.',examples:['"I tripped in front of everyone." — "Oof."','"He missed the flight. Oof."','"Oof, that must have been embarrassing."'],cat:'general'},
+  {word:'vibe',def:'The mood, atmosphere, or feeling a person, place, or situation gives off.',examples:['"The restaurant had such a cozy vibe."','"I love the vibe at that coffee shop."','"She has a really calm, friendly vibe."'],cat:'general'},
+  {word:'vibing',def:'Relaxing, enjoying yourself, or being in a good mood — going with the flow.',examples:['"We were just vibing on the porch."','"She\'s vibing to music in the kitchen."','"Just vibing this weekend — no plans."'],cat:'general'},
+  {word:'in my feelings',def:'Being emotional, reflective, or feeling things very deeply — sometimes sad, sometimes nostalgic.',examples:['"That song always gets me in my feelings."','"I\'m in my feelings today — not sure why."','"Old photos put me in my feelings every time."'],cat:'general'},
+  {word:'touch grass',def:'A lighthearted way to tell someone to go outside and experience real life instead of spending so much time online.',examples:['"You\'ve been on your phone all day — go touch grass."','"Sometimes you just need to touch grass and reset."'],cat:'internet'},
+  {word:'ate',def:'Did something absolutely perfectly — nailed it completely. Short for "ate that up."',examples:['"She ate that performance — flawless."','"He ate that speech. Everyone was impressed."','"You ate this recipe. It\'s incredible."'],cat:'gen-z'},
+  {word:'ate and left no crumbs',def:'Did something so perfectly that there\'s nothing left to criticize — a flawless performance.',examples:['"She ate and left no crumbs with that outfit."','"That singer ate and left no crumbs tonight."'],cat:'gen-z'},
+  {word:'sending me',def:'Something is so funny or surprising that it\'s figuratively sending you somewhere — you can\'t handle it.',examples:['"That joke is sending me."','"His face when he found out is sending me."','"I\'m absolutely sending — that\'s too funny."'],cat:'gen-z'},
+  {word:'i can\'t',def:'Something is so funny, overwhelming, or unbelievable that you can\'t handle it.',examples:['"He showed up wearing that? I can\'t."','"The puppy fell asleep on the keyboard. I can\'t."'],cat:'general'},
+  {word:'living for it',def:'Absolutely loving something — totally here for it and enthusiastic about it.',examples:['"That new show? Living for it."','"She\'s living for this cold weather."','"I\'m living for your energy right now."'],cat:'general'},
+
+  // ── COMPLIMENTS ───────────────────────────────────────────
+  {word:'based',def:'Confident and unapologetically yourself — having strong opinions without caring what others think. A compliment.',examples:['"He wore what he wanted and didn\'t care — that\'s based."','"That\'s a based take — I respect it."','"She quit the job she hated. Based."'],cat:'internet'},
+  {word:'chad',def:'Someone who is extremely confident, successful, and admirable. A compliment for someone who handles things impressively.',examples:['"He stood up for his friend in front of everyone. Total chad."','"She negotiated a huge raise. Absolute chad."'],cat:'internet'},
+  {word:'king',def:'A term of respect and admiration — used to praise a man or anyone for doing something admirable.',examples:['"He held the door for everyone. King behavior."','"You fixed the whole problem? King."'],cat:'general'},
+  {word:'queen',def:'A term of respect, admiration, and empowerment — used to celebrate someone\'s confidence and strength.',examples:['"She handled that so gracefully. Queen."','"You told them the truth? Queen behavior."','"Happy birthday, queen!"'],cat:'general'},
+  {word:'legend',def:'Someone who has done something so impressive or memorable that they deserve long-lasting respect.',examples:['"He fixed the car in 20 minutes — absolute legend."','"She remembered everyone\'s birthday. Legend."','"You\'re a legend for helping with that."'],cat:'general'},
+  {word:'w',def:'Short for "win" or "winner" — used to describe a success, a good decision, or something praiseworthy.',examples:['"You brought snacks for everyone? W."','"That was a massive W for the team."','"Getting a window seat on the flight — W."'],cat:'internet'},
+  {word:'l',def:'Short for "loss" or "loser" — used to describe a failure, bad luck, or a poor decision.',examples:['"He forgot his wallet. L."','"Getting stuck in traffic for two hours — massive L."','"That\'s an L, but you\'ll do better next time."'],cat:'internet'},
+  {word:'goated',def:'Being the greatest — having GOAT (Greatest Of All Time) qualities.',examples:['"She\'s goated at this game."','"That chef is absolutely goated."','"His grandma is goated at making biscuits."'],cat:'gen-z'},
+  {word:'elite',def:'Exceptionally high quality — at the very top level.',examples:['"That meal was elite."','"Her taste in books is elite."','"The customer service there is elite."'],cat:'general'},
+  {word:'immaculate',def:'Absolutely perfect, flawless, and beyond criticism — often used with "vibes."',examples:['"Her outfit is immaculate."','"Immaculate vibes at this restaurant."','"Your timing was immaculate."'],cat:'general'},
+  {word:'hits',def:'Works really well, tastes great, or impresses you — usually said about food or music.',examples:['"That soup really hits."','"This song hits every time."','"The garlic bread really hits tonight."'],cat:'general'},
+  {word:'secured the bag',def:'Successfully got the money, job, deal, or opportunity you were after.',examples:['"She got the promotion — secured the bag."','"He sold the car for full price. Secured the bag."','"Apply for that grant — go secure the bag."'],cat:'general'},
+
+  // ── INTERNET & SOCIAL MEDIA ───────────────────────────────
+  {word:'viral',def:'Content that spreads extremely quickly and widely on the internet, seen by millions of people.',examples:['"That video went viral overnight."','"Her recipe went viral on social media."','"The dog video is viral — everyone\'s seen it."'],cat:'internet'},
+  {word:'clout',def:'Social influence, popularity, or fame — especially online.',examples:['"He posted it just for the clout."','"She has a lot of clout in the cooking community online."','"Chasing clout isn\'t worth it."'],cat:'internet'},
+  {word:'algorithm',def:'The invisible system a website or app uses to decide what content to show you — it learns your habits.',examples:['"The algorithm keeps showing me cat videos."','"She figured out the algorithm and grew her page fast."','"The algorithm pushed her recipe to thousands of people."'],cat:'internet'},
+  {word:'ratio',def:'On social media, when a reply gets more likes than the original post — meaning people agree with the reply more. Also used as a verb.',examples:['"His response got ratioed — everyone agreed with the reply."','"That post got ratio\'d hard."'],cat:'internet'},
+  {word:'on blast',def:'To publicly call someone out or expose them, usually in front of others.',examples:['"She put him on blast for lying."','"Don\'t put me on blast like that!"','"He went on blast for taking credit for her work."'],cat:'internet'},
+  {word:'cancelled',def:'When a public figure or person loses support because of something offensive they said or did.',examples:['"He got cancelled for those old posts."','"She was cancelled after the interview."','"People are quick to cancel these days."'],cat:'internet'},
+  {word:'finsta',def:'Short for "fake Instagram" — a private, secondary account where someone posts more personal or unfiltered content for close friends only.',examples:['"She has a finsta just for her closest friends."','"I only post real stuff on my finsta."'],cat:'internet'},
+  {word:'dm',def:'Short for "Direct Message" — a private message sent on social media, visible only to the sender and recipient.',examples:['"Slide into my DMs."','"She DM\'d me about the recipe."','"Send me a DM and I\'ll share the details."'],cat:'internet'},
+  {word:'fomo',def:'Short for "Fear Of Missing Out" — the anxious feeling that something exciting is happening somewhere and you\'re not there.',examples:['"I have serious FOMO seeing their vacation photos."','"She came even though she was tired — too much FOMO."','"FOMO is real when you see everyone at the party."'],cat:'internet'},
+  {word:'jomo',def:'Short for "Joy Of Missing Out" — the happy, peaceful feeling of staying home instead of going out.',examples:['"No party for me tonight — pure JOMO."','"She\'s embracing JOMO this weekend with a good book."'],cat:'internet'},
+  {word:'irl',def:'Short for "In Real Life" — as opposed to online or on social media.',examples:['"She\'s even nicer IRL than online."','"We finally met IRL after talking online for months."','"That thing only works online, not IRL."'],cat:'internet'},
+  {word:'iykyk',def:'Short for "If You Know You Know" — a phrase used when something will only make sense to a specific group of people.',examples:['"The best coffee shop in town — iykyk."','"That ending made me cry. Iykyk."','"Those who grew up in the 80s will get this — iykyk."'],cat:'internet'},
+  {word:'no filter',def:'Being completely honest and unedited — saying exactly what you think without softening it.',examples:['"She\'s totally no filter — says exactly what\'s on her mind."','"He gave no-filter feedback on the project."'],cat:'internet'},
+  {word:'aesthetic',def:'A particular visual style or mood — the overall look and feel of something.',examples:['"Her kitchen has a cottagecore aesthetic."','"The café has a really cozy vintage aesthetic."','"I love the autumn aesthetic of that photo."'],cat:'internet'},
+  {word:'cottagecore',def:'An aesthetic and lifestyle that romanticizes simple rural life — think gardens, baking, wildflowers, and cozy cottages.',examples:['"Her kitchen is very cottagecore — herbs on the windowsill and everything."','"That apron is so cottagecore."'],cat:'internet'},
+  {word:'core',def:'A suffix added to words to describe an aesthetic or lifestyle — like "cottagecore," "gorpcore," or "normcore."',examples:['"What\'s your core? She\'s very bookishcore."','"Grandmacore is actually really trendy right now."'],cat:'internet'},
+  {word:'fit',def:'Short for "outfit" — how someone is dressed.',examples:['"Nice fit today!"','"What\'s your fit for the wedding?"','"She always has the best fits."'],cat:'general'},
+  {word:'drip',def:'Very stylish clothing or accessories — a fashionable, impressive look.',examples:['"He showed up with serious drip."','"That coat is giving drip."','"She always has the best drip."'],cat:'general'},
+
+  // ── ACTIONS & SITUATIONS ──────────────────────────────────
+  {word:'spill',def:'To share gossip, secrets, or inside information. "Spill the tea" means tell me the gossip.',examples:['"Spill — what happened at the meeting?"','"She finally spilled about the surprise."','"Come on, spill the tea."'],cat:'general'},
+  {word:'no thoughts head empty',def:'Feeling completely blank, zoned out, or not thinking about anything in particular — usually said humorously.',examples:['"Asked me what I wanted for dinner — no thoughts, head empty."','"No thoughts, head empty — it\'s been that kind of day."'],cat:'internet'},
+  {word:'slept on',def:'Something underrated or overlooked — deserving more attention than it gets.',examples:['"That restaurant is slept on — so good and never crowded."','"She\'s slept on as an author — truly brilliant."','"That album is slept on. Give it a listen."'],cat:'general'},
+  {word:'hits home',def:'Something that feels personally relevant or emotionally resonant — it really applies to your own life.',examples:['"That book really hits home."','"The part about family hits home for me."','"Her speech hit home for a lot of people."'],cat:'general'},
+  {word:'gatekeeping',def:'Keeping something — a place, show, recipe, or secret — to yourself instead of telling others about it.',examples:['"Stop gatekeeping that restaurant!"','"She\'s been gatekeeping her grandmother\'s cookie recipe for years."','"I\'m not gatekeeping — here\'s the link."'],cat:'internet'},
+  {word:'humble brag',def:'Complaining about or mentioning something in a way that subtly shows off how good your life is.',examples:['"I\'m so exhausted from my trip to Paris." — Classic humble brag.','"He\'s always humble bragging about his promotions."'],cat:'general'},
+  {word:'clap back',def:'A sharp, witty response to criticism or an insult — fighting back with words.',examples:['"She clapped back perfectly when he was rude."','"His clap back was legendary."','"I didn\'t have a good clap back ready, unfortunately."'],cat:'general'},
+  {word:'flex',def:'To show off — displaying your achievements, possessions, or skills to impress others.',examples:['"He\'s flexing his new car again."','"She\'s always flexing her garden on social media."','"That\'s a flex — you should be proud."'],cat:'general'},
+  {word:'lowkey flex',def:'Showing off in a subtle, understated way — not too obvious.',examples:['"Mentioning her Harvard degree casually — lowkey flex."','"He wore the expensive watch but didn\'t say anything. Lowkey flex."'],cat:'general'},
+  {word:'gassed up',def:'To hype someone up with lots of praise and compliments, making them feel very confident.',examples:['"Her friends gassed her up before the interview."','"He was gassed up after all those compliments."'],cat:'gen-z'},
+  {word:'hyped',def:'Very excited and enthusiastic about something.',examples:['"I\'m so hyped for the holiday dinner."','"She was hyped all week about the concert."','"The whole family is hyped for the reunion."'],cat:'general'},
+  {word:'lowkey obsessed',def:'Really into something or someone — more than you might openly admit.',examples:['"I\'m lowkey obsessed with that cooking show."','"She\'s lowkey obsessed with those mystery novels."','"Lowkey obsessed with this new tea flavor."'],cat:'gen-z'},
+  {word:'caught feelings',def:'Developing romantic feelings for someone, sometimes unexpectedly.',examples:['"He caught feelings after just a few dates."','"She wasn\'t expecting it, but she caught feelings."'],cat:'general'},
+  {word:'hit different',def:'To affect you in a new or unexpected way compared to before — a slightly different form of "hits different."',examples:['"This song hit different after what happened."','"Food always hits different when someone else cooks it."'],cat:'general'},
+  {word:'living rent free',def:'An idea, song, or memory that keeps coming back to your mind uninvited — you can\'t stop thinking about it.',examples:['"That commercial jingle is living rent free in my head."','"Her comment is living rent free — I can\'t let it go."'],cat:'general'},
+  {word:'manifesting',def:'Believing strongly that if you think positively about something and put that energy out into the world, it will happen.',examples:['"I\'m manifesting a good parking spot."','"She\'s manifesting her dream job."','"Manifest it — it\'ll happen!"'],cat:'general'},
+
+  // ── FOOD SLANG ────────────────────────────────────────────
+  {word:'eats',def:'Food — usually used when talking about good food at an event or restaurant.',examples:['"The eats at that party were incredible."','"Where are the good eats around here?"','"She always brings the best eats to potlucks."'],cat:'food'},
+  {word:'grub',def:'Food — a casual, informal word for a meal.',examples:['"Let\'s get some grub after the game."','"That was good grub."','"What\'s for grub tonight?"'],cat:'food'},
+  {word:'munchies',def:'A craving for snacks or food, especially late at night.',examples:['"I\'ve got the munchies — do we have anything to eat?"','"She always gets the munchies after dinner."'],cat:'food'},
+  {word:'slaps hard',def:'Something tastes or sounds exceptionally good — even better than just "slaps."',examples:['"This chili slaps hard."','"That dessert slapped hard — best thing I\'ve eaten in months."'],cat:'food'},
+  {word:'chefs kiss',def:'A gesture (fingers kissed and released) meaning something is absolutely perfect — often written as "chef\'s kiss."',examples:['"That pasta? Chef\'s kiss."','"The sunset tonight — chef\'s kiss."','"Her decorating is chef\'s kiss."'],cat:'food'},
+  {word:'it\'s giving chef\'s kiss',def:'Combining "it\'s giving" and "chef\'s kiss" — it has the energy of something absolutely perfect.',examples:['"This soup is giving chef\'s kiss."','"The ambiance in here is giving chef\'s kiss."'],cat:'food'},
+  {word:'comfort food',def:'Food that makes you feel warm, safe, and nostalgic — usually your favorites from childhood.',examples:['"Mac and cheese is my ultimate comfort food."','"She makes her mom\'s soup — pure comfort food."','"Nothing beats comfort food on a cold day."'],cat:'food'},
+  {word:'foodie',def:'Someone who really loves food — exploring restaurants, recipes, and different cuisines.',examples:['"She\'s a total foodie — always finding the best spots."','"He\'s a foodie so dinner reservations are his department."'],cat:'food'},
+
+  // ── MISC MODERN TERMS ─────────────────────────────────────
+  {word:'adulting',def:'Doing grown-up responsibilities — paying bills, cooking, cleaning — often used humorously when it feels hard.',examples:['"I adulted so hard today — did laundry AND paid bills."','"Adulting is exhausting."','"She\'s finally adulting — got her own apartment."'],cat:'general'},
+  {word:'normalize',def:'To make something feel normal and acceptable — often used when encouraging people to talk about something openly.',examples:['"Normalize taking breaks without feeling guilty."','"Normalize saying no when you\'re tired."','"Let\'s normalize calling just to chat."'],cat:'general'},
+  {word:'it\'s not that deep',def:'Don\'t overthink it — this situation isn\'t as serious or complicated as you\'re making it.',examples:['"It\'s not that deep — just order what you want."','"You\'re overthinking this. It\'s not that deep."'],cat:'general'},
+  {word:'no biggie',def:'No big deal — don\'t worry about it.',examples:['"You forgot the salad?" — "No biggie, we have plenty."','"Sorry I\'m late." — "No biggie at all."'],cat:'general'},
+  {word:'hits the spot',def:'Something is exactly what you needed or wanted — perfectly satisfying.',examples:['"That cup of tea really hits the spot."','"After a long day, a hot bath hits the spot."','"That meal hits the spot every time."'],cat:'general'},
+  {word:'goes hard',def:'Is extremely impressive, intense, or good — something that exceeds expectations.',examples:['"That song goes hard."','"Your chili goes hard every time."','"The decorations go hard — love it."'],cat:'general'},
+  {word:'it\'s a vibe',def:'Something has a great, enjoyable atmosphere or feeling to it.',examples:['"This coffee shop — it\'s a vibe."','"The whole evening was a vibe."','"Rainy days with a good book? It\'s a vibe."'],cat:'general'},
+  {word:'no notes',def:'Something is so perfect that you have zero criticism or suggestions — it couldn\'t be better.',examples:['"That dinner was no notes — absolutely perfect."','"Her speech: no notes. Incredible."','"The outfit is no notes. Don\'t change a thing."'],cat:'gen-z'},
+  {word:'it\'s giving everything',def:'Something is completely delivering — it has it all.',examples:['"This autumn walk is giving everything."','"That dish is giving everything — taste, presentation, all of it."'],cat:'gen-z'},
+  {word:'the moment',def:'Something or someone who is perfect, impressive, and capturing everyone\'s attention right now.',examples:['"That song is the moment."','"She walked in and was the moment."','"Your garden is the moment this time of year."'],cat:'gen-z'},
+  {word:'sending me to another dimension',def:'Something is so funny or overwhelming that you\'re completely losing it.',examples:['"That cat falling off the chair is sending me to another dimension."','"His reaction to the surprise is sending me."'],cat:'gen-z'},
+  {word:'that\'s so real',def:'That\'s genuinely true and I deeply relate to it.',examples:['"I just want to nap all day." — "That\'s so real."','"Growing older doesn\'t mean growing up." — "That\'s so real."'],cat:'general'},
+  {word:'ate that up',def:'Completely loved and consumed something — whether food, a performance, or an experience.',examples:['"She ate that performance up — flawless."','"We ate that meal up, not a crumb left."'],cat:'gen-z'},
+  {word:'sip',def:'To quietly enjoy watching drama or chaos without getting involved — similar to "sip tea."',examples:['"I\'m just sipping and watching this unfold."','"She sipped her coffee and said nothing."'],cat:'general'},
+  {word:'period',def:'Used to strongly finalize a statement — meaning "end of discussion" or "that\'s the truth."',examples:['"She\'s the best, period."','"We deserve respect, period."','"That\'s not acceptable behavior, period."'],cat:'gen-z'},
+  {word:'lowkey slaps',def:'Something is surprisingly good — better than you expected.',examples:['"That discount store lowkey slaps."','"Frozen pizza lowkey slaps when you\'re tired."'],cat:'general'},
+  {word:'not the',def:'Used humorously to call out someone for doing something unexpected or ironic.',examples:['"Not the dog eating my homework."','"Not me forgetting my own dentist appointment."','"Not the WiFi going out during the movie."'],cat:'gen-z'},
+  {word:'just vibes',def:'No agenda, no pressure — just relaxing and enjoying the moment.',examples:['"What\'s the plan tonight?" — "Just vibes."','"The afternoon was just vibes — walked, sat in the sun, read a little."'],cat:'general'},
+  {word:'that\'s the tea',def:'That\'s the truth, the gossip, or the inside story — confirming what someone just shared.',examples:['"She left because she was underappreciated." — "That\'s the tea."','"That\'s the tea — nobody else will tell you."'],cat:'general'},
+  {word:'we don\'t talk about that',def:'A humorous way to say a past mistake or embarrassing event is off-limits for discussion.',examples:['"The 2019 holiday party? We don\'t talk about that."','"My cooking phase in college — we don\'t talk about that."'],cat:'general'},
+];
+
+// load any admin-approved words from localStorage
+function getApprovedWords() {
+  try { const v = localStorage.getItem('sw_dict'); return v ? JSON.parse(v) : []; } catch(e) { return []; }
+}
+let allWords = [...WORDS, ...getApprovedWords()];
+
+function findWord(input) {
+  const n = input.toLowerCase().trim().replace(/[!?.,']+$/,'');
+  const exact = allWords.find(w => w.word.toLowerCase() === n);
+  if (exact) return exact;
+  for (const w of allWords) {
+    if (n.includes(w.word.toLowerCase())) return {...w, matched: w.word};
+  }
+  return null;
+}
+
+// ─── TRANSLATE ────────────────────────────────────────────────
+function doTranslate() {
+  const val = document.getElementById('slangInput').value.trim();
+  if (!val) return;
+  const out = document.getElementById('output');
+  out.innerHTML = '<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+  setTimeout(() => {
+    const r = findWord(val);
+    if (r) {
+      const exHtml = (r.examples||[]).map(e => '<div class="ex">'+e+'</div>').join('');
+      out.innerHTML =
+        (r.matched ? '<div class="out-matched">Matched: "'+r.matched+'"</div>' : '') +
+        '<div class="out-def-label">Meaning</div>' +
+        '<div class="out-def">'+r.def+'</div>' +
+        (exHtml ? '<div class="out-def-label">Examples</div><div class="out-examples">'+exHtml+'</div>' : '');
+    } else {
+      out.innerHTML = '<div class="out-not-found">We don\'t have that one yet! <a onclick="focusSuggest()">Suggest it below \u2193</a> and we\'ll review it.</div>';
+    }
+  }, 480);
+}
+
+function clearAll() {
+  document.getElementById('slangInput').value = '';
+  document.getElementById('output').innerHTML = '<div class="out-placeholder">Your translation appears here</div>';
+}
+
+document.getElementById('slangInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); doTranslate(); }
+});
+
+function focusSuggest() {
+  document.getElementById('sw-word').scrollIntoView({behavior:'smooth', block:'center'});
+  setTimeout(() => document.getElementById('sw-word').focus(), 400);
+}
+
+// ─── CHIPS ────────────────────────────────────────────────────
+const POPULAR = ['no cap','slay','bussin','rizz','delulu','it\'s giving','tea','lowkey','era','sus','goat','hits different','vibe','ghosting','red flag','green flag','chef\'s kiss','fomo','based','periodt','no notes','ate','sending me','fr fr','w','fire','main character','glow up'];
+document.getElementById('chips').innerHTML = POPULAR.map(w =>
+  '<button class="chip" onclick="translateChip(this)">'+w+'</button>'
+).join('');
+
+function translateChip(btn) {
+  document.getElementById('slangInput').value = btn.textContent;
+  doTranslate();
+  document.getElementById('slangInput').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+// ─── SUGGEST ──────────────────────────────────────────────────
+function submitSuggestion() {
+  // honeypot — silently block bots
+  const hp = document.getElementById('hp-field');
+  if (hp && hp.value.trim()) return;
+
+  const word = (document.getElementById('sw-word').value || '').trim();
+  const def  = (document.getElementById('sw-def').value  || '').trim();
+  if (!word || !def) { showToast('Please fill in the word and definition.'); return; }
+
+  const examples = (document.getElementById('sw-ex').value || '').trim().split('\n').filter(Boolean);
+  const author   = (document.getElementById('sw-author').value || '').trim() || 'Anonymous';
+
+  // save to pending queue in localStorage (admin panel reads this)
+  try {
+    const pending = JSON.parse(localStorage.getItem('sw_pending') || '[]');
+    pending.push({ id: Date.now(), word, def, examples, author, submittedAt: Date.now() });
+    localStorage.setItem('sw_pending', JSON.stringify(pending));
+  } catch(e) {}
+
+  // show thank-you
+  document.getElementById('suggestFormArea').innerHTML = `
+    <div class="suggest-success">
+      <div class="success-check">&#10003;</div>
+      <div class="success-title">Thanks for your suggestion!</div>
+      <div class="success-body">
+        <strong>"${word}"</strong> has been sent to the review queue. Once approved it will appear on the site for everyone.
+      </div>
+      <button class="btn-another" onclick="resetSuggestForm()">Suggest another word</button>
+    </div>`;
+}
+
+function resetSuggestForm() {
+  document.getElementById('suggestFormArea').innerHTML = `
+    <div class="suggest-form">
+      <div>
+        <label class="form-label">Slang word or phrase *</label>
+        <input class="form-input" id="sw-word" placeholder='e.g. rizz, era, delulu'>
+      </div>
+      <div class="form-full">
+        <label class="form-label">Plain-English definition *</label>
+        <textarea class="form-textarea" id="sw-def" placeholder="What does it mean? Explain it simply&#8230;"></textarea>
+      </div>
+      <div class="form-full">
+        <label class="form-label">Example sentences</label>
+        <textarea class="form-textarea" id="sw-ex" placeholder='e.g. "He has so much rizz."' style="min-height:60px"></textarea>
+        <div class="form-hint">One example per line</div>
+      </div>
+      <div class="form-full">
+        <label class="form-label">Your name (optional)</label>
+        <input class="form-input" id="sw-author" placeholder="e.g. Margaret from Ohio">
+      </div>
+      <div style="position:absolute;left:-9999px;top:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+        <input type="text" id="hp-field" tabindex="-1" autocomplete="off">
+      </div>
+    </div>
+    <div class="suggest-footer">
+      <button class="btn-suggest" onclick="submitSuggestion()">Submit for Review</button>
+      <div class="suggest-privacy">Your suggestion goes to a private review queue<br>before anything appears on the site.</div>
+    </div>`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+</script>
+</body>
+</html>
