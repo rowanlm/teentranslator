@@ -821,6 +821,159 @@ const WORDS = [
   {word:'just vibes',def:'No agenda, no pressure — just relaxing and enjoying the moment.',examples:['"What\'s the plan tonight?" — "Just vibes."','"The afternoon was just vibes — walked, sat in the sun, read a little."'],cat:'general'},
   {word:'that\'s the tea',def:'That\'s the truth, the gossip, or the inside story — confirming what someone just shared.',examples:['"She left because she was underappreciated." — "That\'s the tea."','"That\'s the tea — nobody else will tell you."'],cat:'general'},
   {word:'we don\'t talk about that',def:'A humorous way to say a past mistake or embarrassing event is off-limits for discussion.',examples:['"The 2019 holiday party? We don\'t talk about that."','"My cooking phase in college — we don\'t talk about that."'],cat:'general'},
+
+  // ── COOKING UP vs GETTING COOKED (and similar pairs) ────────
+  {word:'cooking up',def:'Working on something exciting, creative, or impressive — preparing something great that hasn\'t been revealed yet.',examples:['"She\'s been cooking up a new recipe all week."','"They\'re cooking up something big — can\'t wait to see it."','"What are you cooking up? You look excited."'],cat:'general'},
+  {word:'getting cooked',def:'Being completely beaten, embarrassed, or destroyed — the opposite of cooking up. When someone is on the losing end.',examples:['"He got cooked in that argument — had no comeback."','"Our team got absolutely cooked in the second half."','"She was getting cooked by all the criticism online."'],cat:'general'},
+  {word:'cooking',def:'Performing at a very high level — doing something extremely well right now.',examples:['"She\'s cooking tonight — everything she does is perfect."','"The band was cooking in the second set."','"He\'s cooking on that project — five steps ahead of everyone."'],cat:'general'},
+  {word:'getting grilled',def:'Being intensely questioned or criticized — put under pressure by someone asking hard questions.',examples:['"He got grilled by the interviewer for an hour."','"She was getting grilled by her parents about where she\'d been."','"The new employee got grilled at the meeting."'],cat:'general'},
+  {word:'roasted',def:'Being playfully but harshly mocked — teased with funny insults, usually in a joking, lighthearted way.',examples:['"He got roasted at his retirement party — everyone had jokes."','"She roasted him for wearing socks with sandals."','"The whole group roasted him about his dance moves."'],cat:'general'},
+  {word:'toasted',def:'Either completely exhausted and done, or — in some contexts — lightly celebrated. Context matters.',examples:['"After that hike I am toasted — can\'t move."','"We were all toasted after the long drive."'],cat:'general'},
+
+  {word:'ate (past tense)',def:'Already nailed something perfectly — used after the fact to say someone did an incredible job.',examples:['"She ate that audition."','"He absolutely ate that speech — no notes, flawless."','"You ate this dish. Best thing I\'ve had all year."'],cat:'gen-z'},
+  {word:'fumbled',def:'Missed an opportunity or made a big mistake — especially letting something good slip away.',examples:['"He fumbled the bag — had a great opportunity and blew it."','"She fumbled that chance to say something."','"Don\'t fumble this — it\'s a big deal."'],cat:'general'},
+  {word:'fumbled the bag',def:'Let a great opportunity, relationship, or situation slip through your fingers due to a mistake.',examples:['"He had the best job offer and turned it down — fumbled the bag."','"She fumbled the bag by being late to the interview."','"Don\'t fumble the bag on this one."'],cat:'general'},
+  {word:'secured the bag',def:'Successfully got the money, job, deal, or opportunity you were going after.',examples:['"She got the promotion — secured the bag."','"He sold the car for full asking price. Secured the bag."','"Apply for that grant — go secure the bag."'],cat:'general'},
+
+  {word:'caught an L',def:'Suffered a loss, failure, or embarrassing setback.',examples:['"He asked her out and she said no — caught an L."','"We caught a massive L in that game."','"She caught an L when she tripped on stage."'],cat:'general'},
+  {word:'taking an L',def:'Accepting a loss or failure — sometimes gracefully, sometimes not.',examples:['"I\'m taking the L on this one — I was wrong."','"He\'s taking the L and moving on."','"Sometimes you just have to take the L and try again."'],cat:'general'},
+  {word:'taking the W',def:'Claiming the win — accepting credit for a success.',examples:['"She\'s taking the W on this project — it was all her idea."','"We\'re taking the W tonight!"','"He took the W gracefully and thanked the team."'],cat:'general'},
+
+  {word:'built different',def:'Unusually strong, tough, or exceptional — wired in a way that sets them apart from everyone else.',examples:['"She ran a marathon at 70 — built different."','"He never complains no matter what. Built different."','"That woman is built different — nothing slows her down."'],cat:'general'},
+  {word:'built the same',def:'Very similar to someone — sharing the same attitude, values, or quirks.',examples:['"We both hate mornings and love soup — we\'re built the same."','"These two are built the same, that\'s why they get along."'],cat:'general'},
+
+  {word:'on sight',def:'Ready to react immediately the moment you see someone — usually in a confrontational or joking way.',examples:['"If he shows up, it\'s on sight."','"She said it\'s on sight after what he did."'],cat:'general'},
+  {word:'on god',def:'I swear to God — used to strongly emphasize that something is completely true.',examples:['"On god, that was the best meal of my life."','"I\'m not lying, on god."','"On god, I\'ve never laughed that hard."'],cat:'gen-z'},
+
+  // ── OPPOSITES & CONFUSABLE PAIRS ────────────────────────────
+  {word:'up',def:'Aware, alert, and in the know — understanding what\'s going on. "What\'s up?" can also just mean "what\'s happening?"',examples:['"She\'s always up on the latest news."','"What\'s up? Haven\'t seen you in ages."','"Are you up on what happened?"'],cat:'general'},
+  {word:'down bad',def:'In a desperate, sad, or pathetic situation — usually used when someone is really struggling, especially over a crush.',examples:['"He\'s down bad — texts her every hour."','"After losing the game he was down bad all weekend."','"I\'m down bad for a nap right now."'],cat:'gen-z'},
+  {word:'down',def:'Willing and ready to do something — agreeing to participate.',examples:['"Want to try that new restaurant?" — "I\'m down."','"She\'s always down for an adventure."','"Are you down for a walk later?"'],cat:'general'},
+
+  {word:'caught in your bag',def:'Totally focused and in your own world — deeply absorbed in what you\'re doing.',examples:['"She was caught in her bag at the piano — didn\'t hear me come in."','"He\'s caught in his bag with that book."'],cat:'gen-z'},
+  {word:'in your bag',def:'Performing at your best, fully in your element — everything is clicking.',examples:['"She was in her bag at the dance recital."','"He\'s in his bag lately — promotion, new house, everything."','"When she\'s cooking she\'s always in her bag."'],cat:'gen-z'},
+  {word:'lost the bag',def:'Missed out on money, success, or a great opportunity — things went wrong financially or professionally.',examples:['"He invested badly and lost the bag."','"She lost the bag by quitting too early."'],cat:'general'},
+
+  {word:'gassing up',def:'Hyping someone up with compliments and encouragement — making them feel great about themselves.',examples:['"Her friends were gassing her up before the big presentation."','"Stop gassing me up — you\'re making me blush."','"He always gases up his team before a game."'],cat:'gen-z'},
+  {word:'being gassed',def:'Being overly flattered or pumped up — sometimes to the point where it goes to your head.',examples:['"Don\'t get too gassed — it was one good game."','"She was so gassed after all the compliments."'],cat:'gen-z'},
+
+  {word:'sliding in',def:'Casually approaching or entering a situation — especially sending a private message to someone.',examples:['"He slid into her DMs."','"She slid into the conversation perfectly."','"I\'m going to slide in and say hello."'],cat:'internet'},
+  {word:'sliding out',def:'Leaving a situation quietly or gracefully — making a smooth exit.',examples:['"I slid out of the party early — nobody noticed."','"He slid out of the group chat drama."'],cat:'internet'},
+
+  {word:'locked in',def:'Completely focused and committed — fully dedicated to a task with zero distractions.',examples:['"She\'s locked in studying for finals."','"The team is locked in this week — serious mode."','"He\'s locked in on that project, don\'t disturb him."'],cat:'general'},
+  {word:'locked out',def:'Excluded from something — left out of a situation, group, or opportunity.',examples:['"He was locked out of the decision-making."','"She felt locked out of the conversation."'],cat:'general'},
+
+  {word:'caught slipping',def:'Caught off guard or unprepared — found making a mistake or not paying attention.',examples:['"He got caught slipping without his umbrella in the rain."','"Don\'t get caught slipping — stay ready."','"She was caught slipping when she forgot the meeting."'],cat:'general'},
+  {word:'slipping',def:'Losing your edge, making careless mistakes, or not performing at your usual level.',examples:['"He\'s been slipping lately — missing deadlines."','"You forgot her birthday? You\'re slipping."','"The restaurant is slipping — quality has gone down."'],cat:'general'},
+
+  // ── BRAND NEW MODERN SLANG ───────────────────────────────────
+  {word:'understood the vibe',def:'Got the mood or atmosphere perfectly — read the room correctly and acted accordingly.',examples:['"He brought flowers to cheer her up — understood the vibe."','"The DJ understood the vibe and played all the classics."'],cat:'general'},
+  {word:'read the room',def:'To correctly sense the mood or atmosphere of a situation and adjust your behavior accordingly.',examples:['"He made a joke at the wrong moment — couldn\'t read the room."','"She read the room and kept things light."','"A good host always reads the room."'],cat:'general'},
+  {word:'didn\'t read the room',def:'Failed to pick up on the mood of a situation — said or did something completely inappropriate for the moment.',examples:['"He started complaining at her birthday party — didn\'t read the room."','"She made a joke at the funeral. Didn\'t read the room at all."'],cat:'general'},
+
+  {word:'giving main character energy',def:'Projecting strong, confident, lead-character vibes — acting like the most important person in the room in the best way.',examples:['"She walked in giving main character energy — heads turned."','"He\'s giving main character energy with that coat."'],cat:'gen-z'},
+  {word:'side character energy',def:'Fading into the background, acting as a supporting player rather than standing out.',examples:['"He just agreed with everything — total side character energy."','"I was giving side character energy at that party, barely spoke."'],cat:'gen-z'},
+
+  {word:'plot twist',def:'An unexpected turn of events — something surprising that changes everything.',examples:['"Plot twist — she was the one who planned the party all along."','"Plot twist: he actually loved the surprise."','"Life is full of plot twists."'],cat:'general'},
+  {word:'character development',def:'When someone visibly grows, matures, or changes for the better over time — like a character in a story.',examples:['"She used to hate vegetables — now she gardens. Character development."','"He apologized without being asked. Real character development."','"That\'s growth. That\'s character development."'],cat:'general'},
+  {word:'origin story',def:'The backstory that explains how someone became who they are — usually said when something reveals a lot about a person.',examples:['"She grew up on a farm — that\'s her origin story."','"His love of cooking started when he was five. Origin story."'],cat:'general'},
+  {word:'villain arc',def:'When someone starts acting badly or selfishly — going through a phase where they\'re not their best self.',examples:['"After the breakup he went through a villain arc."','"She\'s in her villain arc — won\'t compromise on anything."'],cat:'gen-z'},
+  {word:'redemption arc',def:'When someone who was behaving badly turns things around and makes things right.',examples:['"He apologized to everyone and really changed — full redemption arc."','"The restaurant had a bad year but they\'re on a redemption arc now."'],cat:'gen-z'},
+  {word:'lore',def:'Someone\'s backstory, history, or deep personal knowledge about a topic. "Having lore" means you have an interesting past.',examples:['"She has so much lore — ask her about her years in Italy."','"This town has a lot of lore."','"He\'s got lore for days — fascinating life."'],cat:'internet'},
+  {word:'no lore',def:'Having no interesting backstory or depth — straightforward with nothing surprising.',examples:['"He\'s got no lore — very simple, what you see is what you get."','"That character has no lore, very one-dimensional."'],cat:'internet'},
+
+  {word:'understood the mission',def:'Knew exactly what needed to be done and executed it perfectly — similar to "understood the assignment" but more serious.',examples:['"She fixed the whole problem without being asked. Understood the mission."','"He showed up prepared and professional. Understood the mission."'],cat:'gen-z'},
+  {word:'missed the assignment',def:'Completely failed to do what was needed or expected — got it wrong.',examples:['"He dressed casually to a black-tie event. Missed the assignment."','"The speech was supposed to be funny — she missed the assignment."'],cat:'gen-z'},
+
+  {word:'giving that',def:'Radiating or embodying a particular quality or feeling.',examples:['"This café is giving that cozy autumn feeling."','"He\'s giving that wise grandfather energy."','"The décor is giving that old Hollywood glamour."'],cat:'gen-z'},
+  {word:'not giving',def:'Failing to deliver the expected energy, quality, or impression.',examples:['"This soup is not giving what I hoped."','"She\'s not giving the enthusiasm the role needs."'],cat:'gen-z'},
+
+  {word:'passes the vibe check',def:'Has the right energy, feel, or atmosphere — meets the standard for a good vibe.',examples:['"New neighbor seems great — passes the vibe check."','"This coffee shop passes the vibe check completely."'],cat:'gen-z'},
+  {word:'failed the vibe check',def:'Has bad energy or the wrong atmosphere — something feels off about a person or place.',examples:['"That restaurant failed the vibe check — uncomfortable and cold."','"He failed the vibe check immediately — very rude to the waiter."'],cat:'gen-z'},
+
+  {word:'no cap no filter',def:'Completely honest and unedited — saying the full truth with zero sugarcoating.',examples:['"No cap no filter — that was the worst movie I\'ve ever seen."','"She told him no cap no filter how she felt."'],cat:'gen-z'},
+  {word:'unfiltered',def:'Completely honest, blunt, and raw — saying exactly what you think.',examples:['"She gave unfiltered feedback — it stung but helped."','"He\'s always unfiltered — you always know where you stand."'],cat:'general'},
+
+  {word:'on brand',def:'Very typical and consistent with someone\'s known personality or style — exactly what you\'d expect from them.',examples:['"She brought homemade cookies to the meeting. So on brand."','"He stayed late to help — completely on brand."','"That joke is very on brand for him."'],cat:'general'},
+  {word:'off brand',def:'Completely out of character — doing something unexpected or unlike your usual self.',examples:['"She skipped the gym — very off brand."','"He was quiet all night. That\'s off brand."'],cat:'general'},
+
+  {word:'that\'s wild',def:'That\'s surprising, unbelievable, or hard to process — an expression of shock.',examples:['"She drove six hours just for the concert? That\'s wild."','"That\'s wild — I had no idea."','"The price went up 50%? That\'s wild."'],cat:'general'},
+  {word:'wild out',def:'To behave in a crazy, over-the-top, or unexpected way.',examples:['"He wilded out when he saw the surprise party."','"She wilded out on the dance floor — everyone was watching."','"Don\'t wild out — stay calm."'],cat:'general'},
+
+  {word:'pressed for time',def:'In a hurry, running short on time — feeling the pressure of a deadline.',examples:['"I\'m pressed for time — can we talk later?"','"She was pressed for time but still helped."'],cat:'general'},
+  {word:'no pressure',def:'Don\'t feel obligated or stressed — take your time, it\'s okay.',examples:['"No pressure, but dinner\'s ready whenever you are."','"Take your time — no pressure at all."'],cat:'general'},
+
+  {word:'low effort',def:'Not trying very hard — putting in minimal work or thought.',examples:['"That gift was low effort — a gas station card."','"Low effort response — didn\'t even read the question."'],cat:'general'},
+  {word:'high effort',def:'Putting in a lot of care, thought, and work — going above and beyond.',examples:['"That handmade birthday card is so high effort — she really cares."','"He\'s always high effort — goes the extra mile."'],cat:'general'},
+
+  {word:'low key',def:'Quiet, understated, or not drawing attention — keeping things calm and simple. (Two words version — same meaning as lowkey.)',examples:['"It was a low key dinner, just the four of us."','"She\'s very low key — hates being the center of attention."'],cat:'general'},
+  {word:'high key',def:'Very obvious, intense, or openly emotional about something — not hiding it at all. (Two words version — same as highkey.)',examples:['"I high key love that show."','"She\'s high key upset about it."'],cat:'general'},
+
+  {word:'understood assignment energy',def:'The feeling or impression that someone or something is perfectly calibrated for what\'s needed.',examples:['"The playlist had understood assignment energy — perfect for the occasion."','"Her outfit had understood assignment energy for the gala."'],cat:'gen-z'},
+
+  {word:'caught the ick',def:'Suddenly feeling repulsed or turned off by someone — often over something small that just ruins your feelings for them.',examples:['"He chewed loudly and she caught the ick."','"She caught the ick when she saw how he treated the waiter."','"It\'s a shame — she caught the ick over something tiny."'],cat:'gen-z'},
+  {word:'the ick',def:'A sudden feeling of disgust or repulsion toward someone you were previously attracted to — often triggered by something minor.',examples:['"One bad habit gave her the ick."','"The ick is real — once you have it, it\'s hard to shake."','"He got the ick when she was rude to the cashier."'],cat:'gen-z'},
+
+  {word:'rizzing up',def:'Actively using your charm to attract or impress someone.',examples:['"He\'s been rizzing her up all evening."','"She walked over and started rizzing him up immediately."'],cat:'gen-z'},
+  {word:'rizz god',def:'Someone with an extraordinary, almost supernatural level of charm and charisma.',examples:['"He walked in and had everyone laughing in five minutes — rizz god."','"She\'s a rizz god — everyone loves her instantly."'],cat:'gen-z'},
+  {word:'unspoken rizz',def:'Charm that works without even saying anything — just through presence, looks, or body language.',examples:['"He has unspoken rizz — just stood there and people gravitated toward him."','"Unspoken rizz is the rarest kind."'],cat:'gen-z'},
+
+  {word:'sigma',def:'Someone who operates independently, doesn\'t follow the crowd, and succeeds on their own terms — a lone wolf personality.',examples:['"He never needs validation from anyone — total sigma."','"She does things her own way. Sigma behavior."'],cat:'internet'},
+  {word:'alpha',def:'A dominant, confident, natural leader — someone who takes charge.',examples:['"He walked in and took charge of the whole situation — alpha energy."','"She\'s the alpha in every room she enters."'],cat:'internet'},
+  {word:'beta',def:'Someone who is timid, passive, or easily influenced — follows rather than leads.',examples:['"He just agreed with everything — beta behavior."','"Don\'t be a beta — stand up for yourself."'],cat:'internet'},
+  {word:'npc',def:'Short for Non-Playable Character (from video games) — someone who seems to go through life on autopilot, without original thought.',examples:['"He just follows the crowd — total NPC."','"She does the same routine every day without thinking. NPC energy."'],cat:'internet'},
+  {word:'main quest',def:'Your primary goal or the most important thing you should be focusing on — from video game language.',examples:['"Stop getting distracted — focus on your main quest."','"Her main quest right now is finishing her degree."'],cat:'internet'},
+  {word:'side quest',def:'A fun detour or secondary task that\'s not your main goal — but enjoyable anyway.',examples:['"We were just going to the store but ended up on a three-hour side quest."','"That conversation was a side quest — worth it though."'],cat:'internet'},
+  {word:'respawn',def:'To recover and start fresh after a setback — from video games where a character comes back to life.',examples:['"She took a week off, respawned, and came back stronger."','"He needed to respawn after that rough month."'],cat:'internet'},
+  {word:'loading',def:'Taking time to process something — thinking or recovering slowly, like a computer loading.',examples:['"Sorry, I\'m loading — what did you say?"','"She\'s still loading after that news."','"Give him a moment, he\'s loading."'],cat:'internet'},
+  {word:'buffering',def:'Pausing and struggling to process something — like a video that keeps stopping.',examples:['"I asked him a simple question and he just buffered."','"She was buffering after the surprise announcement."'],cat:'internet'},
+
+  {word:'rent free thoughts',def:'Thoughts about a person or situation that keep coming back uninvited — you can\'t stop thinking about them.',examples:['"He\'s having rent free thoughts about that argument."','"Those rent free thoughts kept her up all night."'],cat:'general'},
+  {word:'living in my head',def:'Constantly thinking about someone or something — they occupy your thoughts all the time.',examples:['"That song has been living in my head for a week."','"She\'s living in my head rent free."'],cat:'general'},
+
+  {word:'big yikes',def:'A situation that is very cringeworthy, awkward, or bad — an amplified version of "yikes."',examples:['"He said that at her wedding? Big yikes."','"Big yikes — that did not go well."'],cat:'general'},
+  {word:'yikes',def:'An expression of sympathy, horror, or secondhand embarrassment — something went wrong.',examples:['"He tripped walking up to receive his award. Yikes."','"Yikes, that conversation went badly."','"That email had three typos. Yikes."'],cat:'general'},
+  {word:'big ick',def:'A very strong feeling of disgust or repulsion — an intensified version of "the ick."',examples:['"The way he spoke to his mother was a big ick."','"Big ick — I could never get past that."'],cat:'gen-z'},
+
+  {word:'understood nothing',def:'Used humorously to admit you are completely lost or confused.',examples:['"They explained the instructions and I understood nothing."','"Watched the tutorial three times, understood nothing."'],cat:'general'},
+  {word:'not a thing',def:'That doesn\'t exist, isn\'t real, or shouldn\'t happen — used to dismiss something.',examples:['"Eating pasta for breakfast? Not a thing." — "Actually, it is."','"Wearing a tuxedo to a picnic is not a thing."'],cat:'general'},
+  {word:'a whole thing',def:'A complicated, dramatic, or drawn-out situation — more involved than expected.',examples:['"Getting the refund was a whole thing — took three calls."','"Don\'t ask about Thanksgiving — it was a whole thing."','"Moving was a whole thing but we\'re in now."'],cat:'general'},
+  {word:'that\'s a thing',def:'Confirming that something actually exists or happens — sometimes in surprise.',examples:['"Soup subscriptions? That\'s a thing?"','"Apparently taking walks after dinner is a thing in Italy."'],cat:'general'},
+
+  {word:'understood the moment',def:'Fully grasped and took advantage of an important or special occasion.',examples:['"She gave a speech that understood the moment — everyone cried."','"He proposed at sunset. He understood the moment."'],cat:'gen-z'},
+  {word:'missed the moment',def:'Failed to take advantage of a special or important occasion — the opportunity passed.',examples:['"He didn\'t say anything and missed the moment completely."','"She missed the moment to apologize and now it\'s awkward."'],cat:'gen-z'},
+
+  {word:'that hit',def:'Something had an emotional impact — it resonated deeply or felt really satisfying.',examples:['"That speech really hit."','"The last chapter hit hard."','"That first sip of morning coffee just hit."'],cat:'general'},
+  {word:'didn\'t hit',def:'Something failed to have the expected impact or taste — fell flat.',examples:['"The joke didn\'t hit — silence."','"The sequel didn\'t hit the same as the original."','"That dish didn\'t hit for me tonight."'],cat:'general'},
+
+  {word:'that landed',def:'A joke, comment, or gesture had the intended effect — it worked.',examples:['"The punchline landed perfectly."','"His apology really landed — she forgave him."'],cat:'general'},
+  {word:'didn\'t land',def:'A joke or comment fell flat — didn\'t get the reaction that was expected.',examples:['"The joke didn\'t land — awkward silence."','"His attempt at a compliment didn\'t quite land."'],cat:'general'},
+
+  {word:'we\'re so back',def:'Things are good again — a situation, relationship, or feeling has returned to a positive state.',examples:['"After a rough week, we\'re so back."','"Got my energy back — we\'re so back."','"She and her best friend made up — they\'re so back."'],cat:'gen-z'},
+  {word:'it\'s so over',def:'Everything has gone wrong — a situation feels hopeless or finished.',examples:['"I forgot my lines on stage. It\'s so over."','"It\'s so over — nothing is going right today."','"He missed the train. It\'s so over."'],cat:'gen-z'},
+  {word:'we\'re cooked',def:'We\'re in serious trouble — the situation looks very bad and hard to recover from.',examples:['"We forgot the dessert for the party — we\'re cooked."','"We\'re cooked if this plan doesn\'t work."','"We\'re cooked — there\'s no fixing this."'],cat:'general'},
+  {word:'we eat',def:'We win, we succeed, we enjoy the rewards — things are going well.',examples:['"She got the promotion — we eat tonight!"','"Won the contest — we eat!"','"Great harvest from the garden — we eat well this week."'],cat:'general'},
+
+  {word:'rent free in my heart',def:'Something or someone you care about deeply and think about often — warmly, not obsessively.',examples:['"That trip to Italy lives rent free in my heart."','"She lives rent free in my heart — the kindest person I know."'],cat:'general'},
+  {word:'main character of my heart',def:'The most important person to you — the one who matters most.',examples:['"My grandchildren are the main characters of my heart."','"She\'s been the main character of my heart for 40 years."'],cat:'general'},
+
+  {word:'that\'s sending me',def:'That\'s so funny or unbelievable that it\'s completely overwhelming you.',examples:['"The dog wearing a hat is sending me."','"That story is sending me — I can\'t stop laughing."'],cat:'gen-z'},
+  {word:'i\'m going feral',def:'You\'re so excited, overwhelmed, or happy that you\'ve lost all composure — in a fun way.',examples:['"New episodes are out — I\'m going feral."','"The puppies arrived and I went feral."'],cat:'gen-z'},
+  {word:'feral behavior',def:'Acting wild, chaotic, or unhinged — usually in a funny, enthusiastic way rather than literally.',examples:['"Staying up until 3am baking is feral behavior."','"Running into the ocean with your clothes on? Feral behavior."'],cat:'gen-z'},
+
+  {word:'understood the brief',def:'Perfectly grasped what was needed and delivered it exactly right.',examples:['"She decorated the whole house in an hour — understood the brief."','"The caterer understood the brief completely — everything was perfect."'],cat:'gen-z'},
+  {word:'missed the brief',def:'Failed to understand or deliver what was asked for.',examples:['"He showed up in jeans to the formal dinner — missed the brief."','"The cake was lemon when we asked for chocolate. Missed the brief."'],cat:'gen-z'},
+
+  {word:'understood the assignment completely',def:'Not only got it right, but went above and beyond — exceeded all expectations.',examples:['"She planned the whole trip flawlessly — understood the assignment completely."','"He surprised her with her favorite flowers. Understood the assignment completely."'],cat:'gen-z'},
+
+  {word:'low battery',def:'Feeling exhausted, drained, or at your limit — like a phone about to die.',examples:['"Sorry I\'m quiet — I\'m on low battery today."','"She\'s on low battery after that week."','"Low battery — need a nap and some tea."'],cat:'general'},
+  {word:'fully charged',def:'Feeling energized, rested, and ready to go.',examples:['"After a good night\'s sleep I\'m fully charged."','"She came back from vacation fully charged."','"A weekend off and I\'m fully charged."'],cat:'general'},
+  {word:'dead',def:'Completely exhausted — used to mean you have no energy left. Also used to express extreme amusement.',examples:['"I\'m dead after that walk."','"That joke had me dead."','"I\'m absolutely dead — best day ever."'],cat:'general'},
+  {word:'deceased',def:'So funny, embarrassing, or overwhelming that you\'re "dead" — an even more dramatic version.',examples:['"He fell into the pool in his suit. I\'m deceased."','"That story has me deceased."'],cat:'gen-z'},
+
+  {word:'understood the energy',def:'Picked up on the vibe or mood of a situation and matched it perfectly.',examples:['"She came in calm and kind — understood the energy of the room."','"He brought the right energy to the memorial. Understood it completely."'],cat:'general'},
+  {word:'matching energy',def:'Responding to someone with the same level of enthusiasm, warmth, or attitude they\'re giving you.',examples:['"She was so warm — I was matching her energy all night."','"He\'s matching my excitement about the trip."'],cat:'general'},
+  {word:'not matching energy',def:'Not reciprocating the same level of enthusiasm or care — giving less than what\'s being offered.',examples:['"She was so excited but he was not matching her energy at all."','"I put in a lot and she\'s not matching that energy."'],cat:'general'},
 ];
 
 // load any admin-approved words from localStorage
